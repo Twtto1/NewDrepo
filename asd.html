@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Customer Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        .output {
+            margin-top: 20px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function populateTable() {
+            const nameInput = document.getElementById('name-input').value.trim();
+            const bodyweightInput = document.getElementById('bodyweight-input').value.trim();
+            const ageInput = document.getElementById('age-input').value.trim();
+            const heightInput = document.getElementById('height-input').value.trim();
+            const dateInput = document.getElementById('date-input').value.trim();
+            const armsInput = document.getElementById('arms-input').value.trim();
+            const bellyInput = document.getElementById('belly-input').value.trim();
+            const shouldersInput = document.getElementById('shoulders-input').value.trim();
+            const legsInput = document.getElementById('legs-input').value.trim();
+            const calvesInput = document.getElementById('calves-input').value.trim();
+
+            const newBodyweightInput = document.getElementById('new-bodyweight-input').value.trim();
+
+            const table = document.getElementById('customer-table');
+
+            // Clear previous table data
+            table.innerHTML = '';
+
+            const row1 = table.insertRow();
+            row1.innerHTML = `<td>Name:</td><td>${nameInput}</td>`;
+
+            const row2 = table.insertRow();
+            row2.innerHTML = `<td>Current Bodyweight:</td><td>${bodyweightInput}</td>`;
+
+            const row3 = table.insertRow();
+            row3.innerHTML = `<td>Age:</td><td>${ageInput}</td>`;
+
+            const row4 = table.insertRow();
+            row4.innerHTML = `<td>Height:</td><td>${heightInput}</td>`;
+
+            const row5 = table.insertRow();
+            row5.innerHTML = `<td>Date:</td><td>${dateInput}</td>`;
+
+            const row6 = table.insertRow();
+            row6.innerHTML = `<td>Arms:</td><td>${armsInput}</td>`;
+
+            const row7 = table.insertRow();
+            row7.innerHTML = `<td>Belly:</td><td>${bellyInput}</td>`;
+
+            const row8 = table.insertRow();
+            row8.innerHTML = `<td>Shoulders:</td><td>${shouldersInput}</td>`;
+
+            const row9 = table.insertRow();
+            row9.innerHTML = `<td>Legs:</td><td>${legsInput}</td>`;
+
+            const row10 = table.insertRow();
+            row10.innerHTML = `<td>Calves:</td><td>${calvesInput}</td>`;
+
+            const newRowBodyweight = table.insertRow();
+            newRowBodyweight.innerHTML = `<td>New Bodyweight:</td><td>${newBodyweightInput}</td>`;
+
+            // Enable table editing
+            enableTableEditing(table);
+        }
+
+        function enableTableEditing(table) {
+            const cells = table.getElementsByTagName('td');
+            for (let i = 0; i < cells.length; i++) {
+                cells[i].setAttribute('contenteditable', 'true');
+            }
+        }
+
+        function downloadAsExcel() {
+            const table = document.getElementById('customer-table');
+            const htmlTable = table.outerHTML;
+
+            const filename = 'customer_details.xls';
+            const blob = new Blob([htmlTable], {
+                type: 'application/vnd.ms-excel'
+            });
+
+            if (navigator.msSaveBlob) {
+                navigator.msSaveBlob(blob, filename);
+            } else {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = filename;
+                link.click();
+            }
+        }
+
+        function takeScreenshot() {
+            html2canvas(document.getElementById('customer-details')).then(function (canvas) {
+                const link = document.createElement('a');
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'screenshot.png';
+                link.click();
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Customer Details</h1>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <h2>Enter Details</h2>
+                <div class="input-group">
+                    <span class="input-group-text">Name:</span>
+                    <input type="text" id="name-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Current Bodyweight:</span>
+                    <input type="text" id="bodyweight-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Age:</span>
+                    <input type="text" id="age-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Height:</span>
+                    <input type="text" id="height-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Date:</span>
+                    <input type="text" id="date-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Arms:</span>
+                    <input type="text" id="arms-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Belly:</span>
+                    <input type="text" id="belly-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Shoulders:</span>
+                    <input type="text" id="shoulders-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Legs:</span>
+                    <input type="text" id="legs-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">Calves:</span>
+                    <input type="text" id="calves-input" class="form-control">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-text">New Bodyweight:</span>
+                    <input type="text" id="new-bodyweight-input" class="form-control">
+                </div>
+                <button class="btn btn-primary mt-3" onclick="populateTable()">Populate Table</button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Customer Details</h2>
+                <div id="customer-details" class="table-responsive">
+                    <table class="table" id="customer-table">
+                        <!-- Customer details will be dynamically added here -->
+                    </table>
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-primary" onclick="downloadAsExcel()">Download as .xls</button>
+                    <button class="btn btn-primary" onclick="takeScreenshot()">Download as Image</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+</body>
+
+</html>
